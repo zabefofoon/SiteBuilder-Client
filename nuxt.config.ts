@@ -5,6 +5,7 @@ export default {
     '~/assets/style/basic.scss'
   ],
   modules: [
+    '@nuxtjs/supabase',
     '@nuxtjs/tailwindcss',
     [
       '@pinia/nuxt',

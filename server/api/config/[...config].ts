@@ -1,34 +1,19 @@
 import {createRouter, defineEventHandler, useBase} from "h3"
+import {serverSupabaseClient} from "#supabase/server"
+import {Database} from "~/modes/Database"
 
 const router = createRouter()
 
-router.get('/pages', defineEventHandler(() => {
-  return [
-    {
-      'url': '/',
-      'title': '홈페이지',
-      'depth': 1
-    },
-    {
-      'url': '/error',
-      'title': '에러 페이지',
-      'depth': 1
-    },
-    {
-      'url': '/product/:itemCode',
-      'title': '상품상세 페이지',
-      'depth': 2
-    },
-    {
-      'url': '/category',
-      'title': '카테고리 페이지',
-      'depth': 1
-    },
-    {
-      'url': '/category/:categoryCode',
-      'title': '카테고리 페이지',
-      'depth': 2
-    }
-  ]
+router.get('/pages', defineEventHandler(async (event) => {
+
+  const client = await serverSupabaseClient<Database>(event)
+  const {data, error} = await client
+      .from('pages')
+      .select('activate, authorized, dynamic, id, lock, name, url')
+
+  if (error) console.error(error)
+
+
+  return data
 }))
 export default useBase('/api/config', router.handler)

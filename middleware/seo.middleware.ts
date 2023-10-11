@@ -10,6 +10,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   }
 
   const page = matchRoute(cachedPages, to)
+
   if (!page) {
     useHead({
       title: 'error'
@@ -17,7 +18,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     return navigateTo('/error')
   } else {
     useHead({
-      title: page.title
+      title: page.name
     })
   }
 })
@@ -29,7 +30,11 @@ const matchRoute = (pages: Page[], route: RouteLocationNormalized) => {
   const depth = String(route.name).split('-').at(-1)?.replace('depth', '')
 
   return pages
-      ?.filter((page) => page.depth === Number(depth))
+      ?.filter((page) => page.activate)
+      ?.filter((page) => {
+        const pageDepth = page.url.match(/\//g)?.length
+        return pageDepth === Number(depth)
+      })
       .find((page) => {
         const pageUrlBlock = page.url.split('/').at(Number(depth))
         const toUrlBlock = route.path.split('/').at(Number(depth))
