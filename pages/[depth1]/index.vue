@@ -1,8 +1,10 @@
 <template>
-  <nuxt-link to="/product/1">product</nuxt-link>
+  <PageRenderer/>
 </template>
 
 <script setup lang="ts">
+import PageRenderer from "~/components/PageRenderer.vue"
+
 definePageMeta({
   middleware: ['seo-middleware']
 })

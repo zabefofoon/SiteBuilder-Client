@@ -1,16 +1,22 @@
 import {RouteLocationNormalized} from "vue-router"
 import {Page} from "~/modes/Page"
+import {useRequestHeaders} from "#imports"
+import {usePageStore} from "~/store/page.store"
 
 let cachedPages: Page[]
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
+  const pageStore = usePageStore()
+
   if (!cachedPages) {
     const {data: pages} = await useAsyncData('pages', () => $fetch('/api/config/pages'))
     if (!cachedPages) cachedPages = pages.value
   }
 
-  const page = matchRoute(cachedPages, to)
+  const requestHeaders = useRequestHeaders()
 
+  const page = matchRoute(cachedPages, to)
+  pageStore.setPage(page)
   if (!page) {
     useHead({
       title: 'Error'
@@ -24,7 +30,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
         {name: 'keywords', content: page.seo?.keyword},
         {name: 'robots', content: page.seo?.expose ? '' : 'noindex, nofollow'},
         {name: 'og:type', content: 'website'},
-        {name: 'og:url', content: to.fullPath},
+        {name: 'og:url', content: requestHeaders.referer},
         {name: 'og:title', content: page.seo?.title || page.name},
         {name: 'og:image', content: page.seo?.image},
         {name: 'og:description', content: page.seo?.description},
