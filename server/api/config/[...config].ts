@@ -9,7 +9,7 @@ router.get('/pages', defineEventHandler(async (event) => {
   const client = await serverSupabaseClient<Database>(event)
   const {data, error} = await client
       .from('pages')
-      .select('activate, authorized, dynamic, id, lock, name, url')
+      .select('activate, authorized, dynamic, id, lock, name, url, seo(*)')
 
   if (error) console.error(error)
 
