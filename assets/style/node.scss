@@ -1,0 +1,167 @@
+.icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    background-color: currentColor;
+}
+
+.node {
+    width: 100%;
+    border-collapse: collapse;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.node > * {
+    width: 100%;
+}
+
+@media (min-width: 0px) {
+    .small\:type-stack {
+        display: flex;
+    }
+
+    .small\:direction-horizontal {
+        flex-direction: row;
+    }
+
+    .small\:direction-vertical {
+        flex-direction: column;
+    }
+
+    .small\:type-grid {
+        display: grid;
+    }
+
+    .small\:mainAxis-start {
+        justify-content: flex-start;
+    }
+
+    .small\:mainAxis-center {
+        justify-content: center;
+    }
+
+    .small\:mainAxis-end {
+        justify-content: end;
+    }
+
+    .small\:mainAxis-between {
+        justify-content: space-between;
+    }
+
+    .small\:crossAxis-start {
+        align-items: flex-start;
+    }
+
+    .small\:crossAxis-center {
+        align-items: center;
+    }
+
+    .small\:crossAxis-end {
+        align-items: end;
+    }
+
+    .node.small\:position-relative {
+        position: relative;
+    }
+
+    .node.small\:position-absolute {
+        position: absolute;
+    }
+
+    .node.small\:position-sticky {
+        position: sticky;
+    }
+
+    .node.small\:position-fixed {
+        position: fixed;
+    }
+
+    .node.small\:transparent {
+        background: #ffffff;
+    }
+}
+
+@media (min-width: 0) and (max-width: 767px) {
+    .small\:hidden-true {
+        display: none;
+    }
+}
+
+
+@media (min-width: 768px) {
+    .large\:type-stack {
+        display: flex
+    }
+
+    .large\:direction-horizontal {
+        flex-direction: row;
+    }
+
+    .large\:direction-vertical {
+        flex-direction: column;
+    }
+
+    .large\:type-grid {
+        display: grid;
+    }
+
+    .large\:mainAxis-start {
+        justify-content: flex-start;
+    }
+
+    .large\:mainAxis-center {
+        justify-content: center;
+    }
+
+    .large\:mainAxis-end {
+        justify-content: end;
+    }
+
+    .large\:mainAxis-between {
+        justify-content: space-between;
+    }
+
+    .large\:crossAxis-start {
+        align-items: flex-start;
+    }
+
+    .large\:crossAxis-center {
+        align-items: center;
+    }
+
+    .large\:crossAxis-end {
+        align-items: end;
+    }
+
+    .large\:hidden-true {
+        display: none;
+    }
+
+    .node.large\:position-relative {
+        position: relative;
+    }
+
+    .node.large\:position-absolute {
+        position: absolute;
+    }
+
+    .node.large\:position-sticky {
+        position: sticky;
+    }
+
+    .node.large\:position-fixed {
+        position: fixed;
+    }
+
+    .large\:transparent {
+        background: #ffffff;
+    }
+}
