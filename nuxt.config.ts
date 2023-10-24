@@ -28,5 +28,8 @@ export default {
         },
       },
     },
+  },
+  supabase: {
+    redirect: false,
   }
 }
