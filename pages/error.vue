@@ -1,8 +1,10 @@
 <template>
-  Error <NuxtLink to="/">Go to Home</NuxtLink>
+  <PageRenderer/>
 </template>
 
 <script setup lang="ts">
+import PageRenderer from '~/components/PageRenderer.vue'
+
 definePageMeta({
   middleware: ['seo-middleware']
 })
