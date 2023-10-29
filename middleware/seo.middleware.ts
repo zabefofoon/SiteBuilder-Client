@@ -43,10 +43,28 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
 const matchRoute = (pages: Page[],
                     route: RouteLocationNormalized) => {
-  return pages
-      .find((page) => {
-        const urlPattern = new RegExp(`^${page.url?.replace(/:\w+/g, '\\w+')}$`)
-        return urlPattern.test(route.path)
-      })
+  const isPublicRoutes = ['/', '/error'].includes(route.path)
+  if (isPublicRoutes) return pages?.find((page) => page.url === route.path)
 
+  const depth = String(route.name).split('-').at(-1)?.replace('depth', '')
+
+  return pages
+      ?.filter((page) => page.activate)
+      ?.filter((page) => {
+        const pageDepth = page.url?.match(/\//g)?.length
+        return pageDepth === Number(depth)
+      })
+      .find((page) => {
+        const pageUrlBlock = page.url?.split('/').at(Number(depth))
+        const toUrlBlock = route.path.split('/').at(Number(depth))
+
+        const prevPageUrlBlock = page.url?.split('/').at(Number(depth) - 1)
+        const prevToUrlBlock = route.path.split('/').at(Number(depth) - 1)
+
+        return pageUrlBlock?.startsWith(':')
+            ? Number(depth) === 1
+                ? toUrlBlock
+                : prevPageUrlBlock === prevToUrlBlock && toUrlBlock
+            : toUrlBlock === pageUrlBlock
+      })
 }

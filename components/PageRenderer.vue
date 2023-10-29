@@ -17,7 +17,7 @@ const pageStore = usePageStore()
 
 const {data: pageDetail} = await useFetch('/api/page/detail', {query: {id: pageStore.page?.id}})
 
-const nodes = computed(() => NodeClass.makeNodes(JSON.parse(pageDetail.value.detail).nodes))
+const nodes = computed(() => NodeClass.makeNodes(JSON.parse(pageDetail.value.detail)?.nodes || []))
 
 const generatedCss = computed(() => generateCss(nodes.value || []))
 </script>
